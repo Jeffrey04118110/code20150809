@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>笔记页</title>
+</head>
+<body>
+<div>
+    <div>{{request.session.user.username}}的云笔记</div>
+    <a href="/note/add">添加新笔记</a>
+    <a href="/">返回首页</a>
+</div>
+<div>
+    <table>
+         {% csrf_token %}
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
+        </tr>
+        {% for note in page %}
+        <tr>
+            <td>{{ note.id }}</td>
+            <td><a href="">{{note.title}}</a></td>
+            <td>{{note.create_time}}</td>
+            <td>{{note.modify_time}}</td>
+            <td><a href="/note/mod/{{note.id}}">修改</a></td>
+            <td><a href="/note/del/{{note.id}}">删除</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+     {% if page.has_previous %}
+    <!--判断是否有上一页，如果有，把上一页设为超链接-->
+    <a href="/note/?page={{ page.previous_page_number }}">上一页</a>
+    {% else %}
+    <span>上一页</span>
+    {% endif %}
+    {% for p in paginator.page_range %}
+    {% if p == page.number %}
+    <!--如果p是当前页，就不加超链接-->
+    <span>{{ p }}</span>
+    {% else %}
+    <span><a href="/note/?page={{ p }}">{{ p }}</a></span>
+    {% endif %}
+    {% endfor %}
+    {% if page.has_next %}
+    <!--判断是否有下一页，如果有，把下一页设为超链接-->
+    <a href="/note/?page={{ page.next_page_number }}">下一页</a>
+    {% else %}
+    <span>下一页</span>
+    {% endif %}
+</div>
+</body>
+</html>

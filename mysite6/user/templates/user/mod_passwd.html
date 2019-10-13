@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+    <style>
+        body{
+            font-size:13px;
+        }
+        #reg{
+            width: 500px;
+            height: 347px;
+            padding:15px;
+            margin:0px auto;
+            border: solid 1px #ccc;
+        }
+        div>label{
+            /*将内联元素label转成块元素,可决定自己的宽高*/
+            display: inline-block;
+            width: 85px;
+            border: solid 0px red;
+            text-align: right;
+        }
+        div>span{
+            color: red;
+        }
+        div{
+            /*外边距*/
+            margin: 20px 0px;
+            overflow:right;
+        }
+        #p1{
+            font-size:11px;
+            padding: 0px;
+            width: 240px;
+            height: 40px;
+            float: right;
+        }
+        /*上下边距*/
+        .pad{
+            padding: 10px;
+            border: solid 1px #ccc;
+        }
+        .btn{
+            width: 180px;
+            height:45px;
+            background-color: rgb(0,255,107);
+            color: #ffffff;
+            /*圆角*/
+            border-radius:5px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/user/mod_passwd" method="post">
+        {% csrf_token %}
+        <a href="/">首页</a>
+        <a href="/user/reg">注册</a>
+        <div id="reg">
+            <div>
+                <label for="id_username">*用户名:</label>
+                <input type="text" name="username" id="id_username" value="{{username}}">
+                <span>{{username_error}}</span>
+            </div>
+            <div>
+                <label for="id_passwd">*原密码:</label>
+                <input type="password" name="password" id="id_passwd" value="{{passwd}}">
+                <span>{{password_error}}</span>
+            </div>
+            <div>
+                <label for="id_passwd">*新密码:</label>
+                <input type="password" name="password2" id="id_passwd2" value="{{passwd2}}">
+                <span>{{password2_error}}</span>
+            </div>
+            <div>
+                <label for="#"></label>
+                <input type="submit" value="确认修改">
+            </div>
+            <div>
+                <label for="#"></label>
+                <a href="#">《网络服务使用协议》</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
